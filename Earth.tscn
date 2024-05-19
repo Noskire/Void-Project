@@ -1,0 +1,152 @@
+[gd_scene load_steps=13 format=3 uid="uid://i8ati2lcx2et"]
+
+[ext_resource type="Texture2D" uid="uid://cmvnhda8y0fmd" path="res://assets/2k_earth_nightmap.jpg" id="1_a71ao"]
+[ext_resource type="Texture2D" uid="uid://17gexb5d2obn" path="res://assets/2k_moon.jpg" id="2_fc6n1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7du7p"]
+albedo_texture = ExtResource("1_a71ao")
+emission_enabled = true
+emission_energy_multiplier = 2.0
+emission_texture = ExtResource("1_a71ao")
+
+[sub_resource type="SphereMesh" id="SphereMesh_ml6om"]
+material = SubResource("StandardMaterial3D_7du7p")
+radius = 400.0
+height = 800.0
+
+[sub_resource type="Animation" id="Animation_irk62"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.558505, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8oah2"]
+resource_name = "rotate"
+length = 1000.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1000),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.558505, 0), Vector3(0, 6.84169, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bte1e"]
+_data = {
+"RESET": SubResource("Animation_irk62"),
+"rotate": SubResource("Animation_8oah2")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_32wc6"]
+albedo_texture = ExtResource("2_fc6n1")
+emission_enabled = true
+emission_energy_multiplier = 2.0
+emission_texture = ExtResource("2_fc6n1")
+
+[sub_resource type="SphereMesh" id="SphereMesh_gcb8l"]
+material = SubResource("StandardMaterial3D_32wc6")
+radius = 108.992
+height = 217.984
+
+[sub_resource type="Animation" id="Animation_hn6vj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.698132, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xx166"]
+resource_name = "rotate"
+length = 1000.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1000),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.698132, 0), Vector3(0, 5.58505, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1000),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qj0ol"]
+_data = {
+"RESET": SubResource("Animation_hn6vj"),
+"rotate": SubResource("Animation_xx166")
+}
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Earth" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.848048, 0, 0.529919, 0, 1, 0, -0.529919, 0, 0.848048, 0, 0, 0)
+mesh = SubResource("SphereMesh_ml6om")
+
+[node name="Rotate" type="AnimationPlayer" parent="Earth"]
+libraries = {
+"": SubResource("AnimationLibrary_bte1e")
+}
+autoplay = "rotate"
+
+[node name="EarthCenter" type="Node3D" parent="."]
+transform = Transform3D(0.766044, 0, -0.642788, 0, 1, 0, 0.642788, 0, 0.766044, 0, 0, 0)
+
+[node name="Moon" type="MeshInstance3D" parent="EarthCenter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 600, 0, 0)
+mesh = SubResource("SphereMesh_gcb8l")
+skeleton = NodePath("../../Earth")
+
+[node name="Rotate" type="AnimationPlayer" parent="EarthCenter/Moon"]
+libraries = {
+"": SubResource("AnimationLibrary_qj0ol")
+}
+autoplay = "rotate"

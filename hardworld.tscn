@@ -1,0 +1,364 @@
+[gd_scene load_steps=26 format=3 uid="uid://d3wivgf1ujcpk"]
+
+[ext_resource type="Script" path="res://hard.gd" id="1_d7ub6"]
+[ext_resource type="Texture2D" uid="uid://8bvidfuqegre" path="res://assets/2k_stars_milky_way.jpg" id="2_ipnxk"]
+[ext_resource type="PackedScene" uid="uid://bwnysrwgdhxov" path="res://Sun.tscn" id="3_vb40e"]
+[ext_resource type="PackedScene" uid="uid://i8ati2lcx2et" path="res://Earth.tscn" id="4_ca3r4"]
+[ext_resource type="PackedScene" uid="uid://blf7dddhho6mw" path="res://assets/craft_cargoA.glb" id="5_cyhcd"]
+[ext_resource type="Script" path="res://Player.gd" id="6_f8lie"]
+[ext_resource type="PackedScene" uid="uid://4qg1be66t6qv" path="res://astronaut.tscn" id="7_l3r6m"]
+[ext_resource type="Script" path="res://ShipDirection.gd" id="8_oahh2"]
+[ext_resource type="Script" path="res://PlayerMenu.gd" id="9_s64du"]
+[ext_resource type="Theme" uid="uid://coo3cs76maol3" path="res://assets/canvas_theme.tres" id="10_pnbo3"]
+[ext_resource type="AudioStream" uid="uid://bse08cv7sycst" path="res://assets/Stay the Course.mp3" id="11_fh6m7"]
+[ext_resource type="AudioStream" uid="uid://07bysfahq2yu" path="res://assets/心臓の鼓動1.mp3" id="12_yvvat"]
+[ext_resource type="AudioStream" uid="uid://b2ldxgngfcgl4" path="res://assets/Jets/Jet1.wav" id="13_7sa36"]
+[ext_resource type="AudioStream" uid="uid://bilfhtmotgsex" path="res://assets/Jets/Jet2.wav" id="14_24q8v"]
+[ext_resource type="AudioStream" uid="uid://ufyg5eqa37px" path="res://assets/Jets/Jet3.wav" id="15_5qnwl"]
+[ext_resource type="AudioStream" uid="uid://bjj0dv24gvqww" path="res://assets/Jets/Jet4.wav" id="16_j0lsq"]
+[ext_resource type="AudioStream" uid="uid://dekc0wi20bvf0" path="res://assets/Jets/Jet5.wav" id="17_ofebw"]
+[ext_resource type="AudioStream" uid="uid://34f3su0y5xix" path="res://assets/Jets/Jet6.wav" id="18_7jcic"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1adix"]
+panorama = ExtResource("2_ipnxk")
+
+[sub_resource type="Sky" id="Sky_856jh"]
+sky_material = SubResource("PanoramaSkyMaterial_1adix")
+
+[sub_resource type="Environment" id="Environment_lpxj6"]
+background_mode = 2
+background_energy_multiplier = 0.8
+sky = SubResource("Sky_856jh")
+glow_enabled = true
+glow_bloom = 0.2
+glow_blend_mode = 1
+adjustment_enabled = true
+adjustment_brightness = 1.05
+adjustment_contrast = 1.05
+adjustment_saturation = 1.3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n6rck"]
+size = Vector3(1.4, 0.6, 2.2)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ma5ee"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7t546"]
+points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
+
+[sub_resource type="PrismMesh" id="PrismMesh_w6b2j"]
+size = Vector3(0.25, 1, 0.1)
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_d7ub6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lpxj6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.994151, 0, -0.107999, 0, 1, 0, 0.107999, 0, -0.994151, 0, 0, 0)
+light_color = Color(1, 1, 0.862745, 1)
+light_angular_distance = 2.0
+shadow_enabled = true
+shadow_opacity = 0.9
+shadow_blur = 0.4
+directional_shadow_mode = 0
+directional_shadow_max_distance = 1000.0
+
+[node name="Sun" parent="." instance=ExtResource("3_vb40e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2500)
+cast_shadow = 0
+
+[node name="Earth" parent="." instance=ExtResource("4_ca3r4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1000)
+
+[node name="SpaceShip" parent="." instance=ExtResource("5_cyhcd")]
+transform = Transform3D(1.41421, 0, -1.41421, 0, 2, 0, 1.41421, 0, 1.41421, 0, 0, 50)
+
+[node name="Area3D" type="Area3D" parent="SpaceShip"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.4, 1.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceShip/Area3D"]
+shape = SubResource("BoxShape3D_n6rck")
+
+[node name="Player" type="RigidBody3D" parent="."]
+transform = Transform3D(-0.999999, 0, -8.74227e-08, 0, 1, 0, 8.74227e-08, 0, -1, 0, 0, 0)
+mass = 90.0
+gravity_scale = 0.0
+script = ExtResource("6_f8lie")
+
+[node name="Head" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, -2.13163e-14, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player/Head"]
+transform = Transform3D(1, 0, 9.9476e-14, 0, 1, 0, 1.42109e-14, 0, 1, 1.61462e-08, 0, -0.184691)
+far = 8000.0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Player/Head"]
+transform = Transform3D(1, 0, 1.06581e-13, 0, 1, 0, 7.10543e-15, 0, 1, -2.03951e-08, 0, 0.233293)
+
+[node name="Center" type="Label3D" parent="Player"]
+transform = Transform3D(1, 4.84288e-08, -3.72529e-09, -1.55065e-07, 1, 8.9407e-08, 2.04891e-08, 5.96046e-08, 1, 0, 0.5, -1)
+modulate = Color(0, 1, 0, 1)
+outline_modulate = Color(0, 0, 0, 0)
+text = "+"
+font_size = 12
+
+[node name="astronautB2" parent="Player" instance=ExtResource("7_l3r6m")]
+transform = Transform3D(2, 0, -1.42109e-14, 0, 2, 0, 4.26326e-14, 0, 2, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+visible = false
+mesh = SubResource("CapsuleMesh_ma5ee")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("ConvexPolygonShape3D_7t546")
+
+[node name="ShipDirection" type="Node3D" parent="."]
+visible = false
+script = ExtResource("8_oahh2")
+
+[node name="Arrow" type="MeshInstance3D" parent="ShipDirection"]
+transform = Transform3D(0.999999, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 1.75)
+mesh = SubResource("PrismMesh_w6b2j")
+skeleton = NodePath("../../Player")
+
+[node name="Menu" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("9_s64du")
+
+[node name="HUD" type="Control" parent="Menu"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("10_pnbo3")
+
+[node name="OxygenBox" type="VBoxContainer" parent="Menu/HUD"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 50.0
+offset_right = 600.0
+offset_bottom = 136.0
+
+[node name="Label" type="Label" parent="Menu/HUD/OxygenBox"]
+layout_mode = 2
+text = "Oxygen"
+
+[node name="ProgressBar" type="ProgressBar" parent="Menu/HUD/OxygenBox"]
+layout_mode = 2
+value = 100.0
+rounded = true
+
+[node name="FuelBox" type="VBoxContainer" parent="Menu/HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -600.0
+offset_top = 50.0
+offset_right = -100.0
+offset_bottom = 136.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="Menu/HUD/FuelBox"]
+layout_mode = 2
+text = "Fuel"
+horizontal_alignment = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Menu/HUD/FuelBox"]
+layout_mode = 2
+value = 100.0
+rounded = true
+
+[node name="Win" type="Control" parent="Menu"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("10_pnbo3")
+
+[node name="ColorRect" type="ColorRect" parent="Menu/Win"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.498039, 0.666667, 1, 0.498039)
+
+[node name="VBox" type="VBoxContainer" parent="Menu/Win"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -155.5
+offset_right = 300.0
+offset_bottom = 155.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="Menu/Win/VBox"]
+layout_mode = 2
+text = "You saved yourself!"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Menu/Win/VBox"]
+layout_mode = 2
+text = "Congratulations!"
+horizontal_alignment = 1
+
+[node name="Time" type="Label" parent="Menu/Win/VBox"]
+layout_mode = 2
+text = "Time: xxxx"
+horizontal_alignment = 1
+
+[node name="Restart" type="Button" parent="Menu/Win/VBox"]
+layout_mode = 2
+text = "Restart"
+
+[node name="Menu" type="Button" parent="Menu/Win/VBox"]
+layout_mode = 2
+text = "Menu"
+
+[node name="Lose" type="Control" parent="Menu"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("10_pnbo3")
+
+[node name="ColorRect" type="ColorRect" parent="Menu/Lose"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.745098)
+
+[node name="VBox" type="VBoxContainer" parent="Menu/Lose"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -155.5
+offset_right = 300.0
+offset_bottom = 155.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+
+[node name="Reason" type="Label" parent="Menu/Lose/VBox"]
+layout_mode = 2
+text = "Your fuel has run out!"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Menu/Lose/VBox"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]The [b]VOID[/b] welcomes you![/center]"
+fit_content = true
+
+[node name="Time" type="Label" parent="Menu/Lose/VBox"]
+layout_mode = 2
+text = "Time: xxxx"
+horizontal_alignment = 1
+
+[node name="Restart" type="Button" parent="Menu/Lose/VBox"]
+layout_mode = 2
+text = "Restart"
+
+[node name="Menu" type="Button" parent="Menu/Lose/VBox"]
+layout_mode = 2
+text = "Menu"
+
+[node name="Hints" type="Control" parent="Menu"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("10_pnbo3")
+
+[node name="ColorRect" type="ColorRect" parent="Menu/Hints"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.247059)
+
+[node name="Keys" type="GridContainer" parent="Menu/Hints/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="Menu/Hints/ColorRect/Keys"]
+layout_mode = 2
+text = "Back"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("11_fh6m7")
+volume_db = -12.0
+
+[node name="Heart" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_yvvat")
+volume_db = -12.0
+autoplay = true
+
+[node name="Jets" type="Node3D" parent="."]
+
+[node name="Jet1" type="AudioStreamPlayer" parent="Jets"]
+stream = ExtResource("13_7sa36")
+volume_db = -6.0
+
+[node name="Jet2" type="AudioStreamPlayer" parent="Jets"]
+stream = ExtResource("14_24q8v")
+volume_db = -6.0
+
+[node name="Jet3" type="AudioStreamPlayer" parent="Jets"]
+stream = ExtResource("15_5qnwl")
+volume_db = -6.0
+
+[node name="Jet4" type="AudioStreamPlayer" parent="Jets"]
+stream = ExtResource("16_j0lsq")
+volume_db = -6.0
+
+[node name="Jet5" type="AudioStreamPlayer" parent="Jets"]
+stream = ExtResource("17_ofebw")
+volume_db = -6.0
+
+[node name="Jet6" type="AudioStreamPlayer" parent="Jets"]
+stream = ExtResource("18_7jcic")
+volume_db = -6.0
+
+[connection signal="body_entered" from="SpaceShip/Area3D" to="Player" method="_on_ship_area_entered"]
+[connection signal="button_up" from="Menu/Win/VBox/Restart" to="Menu" method="_on_restart_button_up"]
+[connection signal="button_up" from="Menu/Win/VBox/Menu" to="Menu" method="_on_menu_button_up"]
+[connection signal="button_up" from="Menu/Lose/VBox/Restart" to="Menu" method="_on_restart_button_up"]
+[connection signal="button_up" from="Menu/Lose/VBox/Menu" to="Menu" method="_on_menu_button_up"]
+[connection signal="button_up" from="Menu/Hints/ColorRect/Keys/Back" to="Menu" method="_on_back_button_up"]

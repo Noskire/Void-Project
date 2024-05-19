@@ -1,0 +1,14 @@
+Textura dos planetas e skybox
+https://www.solarsystemscope.com/textures/
+
+Space ship (Craft Cargo A) and Astronaut (B) by Kenney
+https://kenney.nl/assets/space-kit
+
+Music:
+"Stay the Course" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0
+
+SFX:
+	Coração Batendo 4x from https://soundeffect-lab.info/ (心臓の鼓動1)
+	Locomotiva a vapor parada from https://soundeffect-lab.info/ (蒸気機関車停車中)
